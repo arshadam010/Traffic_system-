@@ -1,21 +1,48 @@
 
-from camera_config import TARGET_DISTANCES
-from distance_calculator import (
-    distance_to_pixel,
-    pixel_to_distance
-)
+import cv2
+from pathlib import Path
 
-print("Bengaluru SmartSignal - Camera Calibration")
-print("------------------------------------------")
+from camera_config import TARGET_DISTANCES
+from distance_calculator import distance_to_pixel
+
+BASE_DIR = Path(__file__).resolve().parents[1]
+IMAGE_PATH = BASE_DIR / "samples" / "road.jpg"
+OUTPUT_PATH = BASE_DIR / "samples" / "calibration_overlay.jpg"
+
+image = cv2.imread(str(IMAGE_PATH))
+
+if image is None:
+    raise FileNotFoundError(
+        f"Could not load road image: {IMAGE_PATH}"
+    )
+
+height, width = image.shape[:2]
+
+if height != 1080:
+    raise ValueError("Expected an image with height 1080 pixels.")
 
 for distance in TARGET_DISTANCES:
+    y = int(round(distance_to_pixel(distance)))
 
-    pixel = distance_to_pixel(distance)
+    if 0 <= y < height:
+        cv2.line(
+            image,
+            (0, y),
+            (width, y),
+            (0, 0, 255),
+            2
+        )
 
-    recovered_distance = pixel_to_distance(pixel)
+        cv2.putText(
+            image,
+            f"{distance} metres",
+            (30, max(y - 10, 25)),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0, 0, 255),
+            2
+        )
 
-    print(
-        f"Distance: {distance:3} m | "
-        f"Pixel row: {pixel:7.2f} | "
-        f"Verified distance: {recovered_distance:.2f} m"
-    )
+cv2.imwrite(str(OUTPUT_PATH), image)
+
+print(f"Calibration overlay saved at: {OUTPUT_PATH}")
