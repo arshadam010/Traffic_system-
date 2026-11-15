@@ -18,7 +18,7 @@ if image is None:
 
 height, width = image.shape[:2]
 
-if height != 1080:
+if height != 2752:
     raise ValueError("Expected an image with height 1080 pixels.")
 
 for distance in TARGET_DISTANCES:
