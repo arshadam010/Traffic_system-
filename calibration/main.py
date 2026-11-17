@@ -1,7 +1,7 @@
 import cv2
 from pathlib import Path
 
-from camera_config import IMAGE_WIDTH, IMAGE_HEIGHT, DISTANCE_ZONES
+from camera_config import IMAGE_WIDTH, IMAGE_HEIGHT, DISTANCE_ZONES ,CAMERA_TO_STOP_LINE
 from distance_calculator import distance_to_pixel
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -21,7 +21,9 @@ if (width, height) != (IMAGE_WIDTH, IMAGE_HEIGHT):
     )
 
 for distance in DISTANCE_ZONES:
-    raw_y = distance_to_pixel(distance)
+    raw_y = distance_to_pixel(
+        distance + CAMERA_TO_STOP_LINE
+    )
     if raw_y is None:
         continue
 
