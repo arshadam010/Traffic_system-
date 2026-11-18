@@ -5,7 +5,7 @@ from ultralytics import YOLO
 
 
 # YOLO segmentation model
-MODEL_PATH = "yolo11n-seg.pt"
+MODEL_PATH = "yolo11n-seg.pt"  # auto-downloaded by ultralytics on first run
 
 # Vehicle classes in the COCO dataset
 VEHICLE_CLASSES = {

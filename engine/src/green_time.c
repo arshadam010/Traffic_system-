@@ -1,5 +1,4 @@
-
-#include "signal.h"
+#include "green_time.h"
 
 int classify_queue(double queue_length)
 {
@@ -26,26 +25,24 @@ int classify_queue(double queue_length)
     }
 }
 
-
-int calculate_green_time(double queue_length)
+int green_time_for_zone(int zone)
 {
-    int zone = classify_queue(queue_length);
-
     switch (zone)
     {
         case 1:
             return 15;
-
         case 2:
             return 25;
-
         case 3:
             return 35;
-
         case 4:
             return 45;
-
         default:
             return -1;
     }
+}
+
+int calculate_green_time(double queue_length)
+{
+    return green_time_for_zone(classify_queue(queue_length));
 }

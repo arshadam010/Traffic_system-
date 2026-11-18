@@ -2,14 +2,14 @@
 import cv2
 import numpy as np
 
-from camera_config import (
+from smartsignal.config import (
     IMAGE_WIDTH,
     IMAGE_HEIGHT,
     CAMERA_TO_STOP_LINE,
     DISTANCE_ZONES
 )
 
-from distance_calculator import distance_to_pixel
+from smartsignal.geometry import distance_to_pixel
 
 
 def get_zone_boundaries():
@@ -48,7 +48,10 @@ def create_zone_masks(road_mask=None):
     zone_masks = []
 
     # Image rows are ordered from top (far) to bottom (near).
-    image_limits = [0] + boundaries + [IMAGE_HEIGHT]
+    # get_zone_boundaries() is ordered near -> far (large y -> small y),
+    # so reverse it to get increasing pixel rows.
+    stop_line_y = int(round(distance_to_pixel(CAMERA_TO_STOP_LINE)))
+    image_limits = [0] + boundaries[::-1] + [stop_line_y]
 
     for i in range(4):
 

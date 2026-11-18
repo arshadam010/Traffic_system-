@@ -1,8 +1,9 @@
+"""Show the four distance zones drawn over samples/road.jpg."""
 
 import cv2
 from pathlib import Path
 
-from zones import create_zone_masks, draw_zones
+from smartsignal.zones import create_zone_masks, draw_zones
 
 # Project root directory
 BASE_DIR = Path(__file__).resolve().parents[1]

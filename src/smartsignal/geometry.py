@@ -1,6 +1,6 @@
 import math
 
-from camera_config import (
+from smartsignal.config import (
     CAMERA_HEIGHT,
     CAMERA_TILT,
     VERTICAL_FOV,

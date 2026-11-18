@@ -1,8 +1,9 @@
+"""Draw the calibrated distance lines on samples/road.jpg and save an overlay."""
 import cv2
 from pathlib import Path
 
-from camera_config import IMAGE_WIDTH, IMAGE_HEIGHT, DISTANCE_ZONES ,CAMERA_TO_STOP_LINE
-from distance_calculator import distance_to_pixel
+from smartsignal.config import IMAGE_WIDTH, IMAGE_HEIGHT, DISTANCE_ZONES, CAMERA_TO_STOP_LINE
+from smartsignal.geometry import distance_to_pixel
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 IMAGE_PATH = BASE_DIR / "samples" / "road.jpg"
