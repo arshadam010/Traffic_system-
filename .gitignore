@@ -1,3 +1,24 @@
-.vscode
-.idea
-.venv
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Secrets (in case you add any later)
+.env
+
+# Models and generated output
+*.pt
+runs/
+samples/*
+!samples/.gitkeep
+
+# C build output
+build/
